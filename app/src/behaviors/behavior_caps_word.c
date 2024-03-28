@@ -36,6 +36,10 @@ struct behavior_caps_word_config {
     bool ignore_alphas;
     bool ignore_numbers;
     bool ignore_modifiers;
+    int8_t layers;
+    bool ignore_alphas;
+    bool ignore_numbers;
+    bool ignore_modifiers;
     uint8_t index;
     uint8_t continuations_count;
     struct caps_word_continue_item continuations[];
@@ -52,6 +56,11 @@ static void activate_caps_word(const struct device *dev) {
 
     if (config->layers > -1) {
         zmk_keymap_layer_activate(config->layers, false);
+    }
+    const struct behavior_caps_word_config *config = dev->config;
+
+    if (config->layers > -1) {
+        zmk_keymap_layer_activate(config->layers);
     }
     data->active = true;
 }
